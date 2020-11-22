@@ -27,7 +27,8 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private Button logout;
-    private EditText edit;
+    private EditText ghost;
+    private EditText lobby;
     private Button add;
     private ListView listView;
     private ToggleButton toggle;
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         logout = findViewById(R.id.logout);
-        edit = findViewById(R.id.edit);
+        ghost = findViewById(R.id.ghost);
+        lobby = findViewById(R.id.lobby);
         add = findViewById(R.id.add);
         listView = findViewById(R.id.listView);
         toggle = findViewById(R.id.toggle);
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isMaster) {
                 if (isMaster) {
-                    edit.setText("true"); //send true at random intervals
+                    ghost.setText("true"); //send true at random intervals
                     //delay for a random period of time before sending false
                 } else {
                     //ignore all incoming data
@@ -67,11 +69,16 @@ public class MainActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt_name = edit.getText().toString();
-                if (txt_name.isEmpty()) {
+                String txt_ghost = ghost.getText().toString();
+                String txt_lobby = lobby.getText().toString();
+                if (txt_ghost.isEmpty() || txt_lobby.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Nothing entered", Toast.LENGTH_SHORT).show();
                 } else {
-                    FirebaseDatabase.getInstance().getReference().child("Languages").child("Name").setValue(txt_name);
+                    //FirebaseDatabase.getInstance().getReference().child("Multiplayer").child("Name").setValue(txt_name);
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("Lobby", txt_lobby);
+                    map.put("ghostNear", txt_ghost);
+                    FirebaseDatabase.getInstance().getReference().child("Multiplayer").child("Updates").updateChildren(map);
                 }
             }
         });
@@ -80,13 +87,15 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.list_item, list);
         listView.setAdapter(adapter);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Languages");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Multiplayer");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    list.add(snapshot.getValue().toString());
+                    Information info = snapshot.getValue(Information.class);
+                    String txt = info.getLobby() + " : " + info.getGhost();
+                    list.add(txt);
                 }
                 adapter.notifyDataSetChanged();;
             }
