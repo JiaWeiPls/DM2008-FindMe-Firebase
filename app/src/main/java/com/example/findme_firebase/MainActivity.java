@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText edit;
     private Button add;
     private ListView listView;
+    private ToggleButton toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,19 @@ public class MainActivity extends AppCompatActivity {
         edit = findViewById(R.id.edit);
         add = findViewById(R.id.add);
         listView = findViewById(R.id.listView);
+        toggle = findViewById(R.id.toggle);
+
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isMaster) {
+                if (isMaster) {
+                    edit.setText("true"); //send true at random intervals
+                    //delay for a random period of time before sending false
+                } else {
+                    //ignore all incoming data
+                }
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
