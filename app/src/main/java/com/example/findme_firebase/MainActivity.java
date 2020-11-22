@@ -105,9 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        //HashMap<String, Object> map = new HashMap<>();
-        //map.put("Name", "Rishav");
-        //map.put("Email", "gmail.com");
         //FirebaseDatabase.getInstance().getReference().child("ProgrammingKnowledge").child("MultipleValues").updateChildren(map);
     }
 }
