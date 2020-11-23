@@ -94,8 +94,10 @@ public class MainActivity extends AppCompatActivity {
                 list.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Information info = snapshot.getValue(Information.class);
-                    String txt = info.getLobby() + " : " + info.getGhost();
-                    list.add(txt);
+                    if (info.getLobby().equals(lobby.getText().toString())) {
+                        String txt = info.getLobby() + " : " + info.getGhost();
+                        list.add(txt);
+                    }
                 }
                 adapter.notifyDataSetChanged();;
             }
