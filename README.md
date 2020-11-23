@@ -5,7 +5,7 @@ This is an Android Application to show how the Find Me app will implement multip
 ## Installation
 Clone this repository and import into **Android Studio**
 ```bash
-git clone git@github.com:wolox/DM2008-FindMe-Firebase.git
+git clone git@github.com:JiaWeiPls/DM2008-FindMe-Firebase.git
 ```
 
 ## Configuration
@@ -30,6 +30,15 @@ From Android Studio:
 1. ***Build*** menu
 2. ***Generate Signed APK...***
 3. Fill in the keystore information *(you only need to do this once manually and then let Android Studio remember it)*
+
+## Usage
+1. Create an account and log in.
+2. Choose between Master or Slave by toggling the toggle button.
+3. Enter a lobby code.
+4. Enter "true" or "false" for ghostNear.
+5. Tap send.
+6. See the information you have sent on screen.
+7. Try it out using 2 devices. One device set to Master and the other set to Slave.
 
 ## Maintainers
 This project is mantained by:
