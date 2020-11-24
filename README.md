@@ -43,7 +43,7 @@ From Android Studio:
 ## Maintainers
 This project is mantained by:
 * [Jia Wei](http://github.com/JiaWeiPls)
-
+* [Theodore](http://github.com/theOrderOfLoki)
 
 ## Contributing
 
